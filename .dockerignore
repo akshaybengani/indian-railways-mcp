@@ -1,0 +1,11 @@
+# Never copy these into the Docker build context
+node_modules/
+build/
+.env
+.git/
+*.log
+*.tsbuildinfo
+.idea/
+.vscode/
+README.md
+LICENSE

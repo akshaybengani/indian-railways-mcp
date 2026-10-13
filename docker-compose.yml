@@ -1,0 +1,25 @@
+services:
+  indian-railways-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: indian-railways-mcp
+    restart: unless-stopped
+
+    # ── Network ────────────────────────────────────────────────────────────────
+    # Bridge mode + explicit port binding so the service is reachable over the
+    # network.  Cloudflare Tunnel running on a *different* VM should point its
+    # ingress rule to  http://<THIS_VM_IP>:${PORT}
+    ports:
+      - "${PORT}:${PORT}"
+
+    # ── Environment ────────────────────────────────────────────────────────────
+    env_file:
+      - .env
+
+    # ── Logging ───────────────────────────────────────────────────────────────
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
